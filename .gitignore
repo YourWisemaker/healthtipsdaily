@@ -1,3 +1,4 @@
+# Laravel specific
 /.phpunit.cache
 /node_modules
 /public/build
@@ -5,19 +6,48 @@
 /public/storage
 /storage/*.key
 /storage/pail
+/storage/logs/*
+!/storage/logs/.gitkeep
+/storage/framework/cache/*
+!/storage/framework/cache/.gitkeep
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitkeep
+/storage/framework/testing/*
+!/storage/framework/testing/.gitkeep
+/storage/framework/views/*
+!/storage/framework/views/.gitkeep
 /vendor
 .env
-.env.backup
-.env.production
-.phpactor.json
+.env.*
+!.env.example
 .phpunit.result.cache
-Homestead.json
-Homestead.yaml
-npm-debug.log
-yarn-error.log
-/auth.json
+
+# IDE & Editor folders
 /.fleet
 /.idea
-/.nova
 /.vscode
+/.nova
 /.zed
+/.phpactor.json
+
+# OS files
+.DS_Store
+Thumb.db
+
+# Composer & npm
+composer.phar
+auth.json
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Laravel Homestead
+Homestead.json
+Homestead.yaml
+
+# Laravel Sail
+docker-compose.override.yml
+
+# Testing
+/coverage
+.phpunit.cache

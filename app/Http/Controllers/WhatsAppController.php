@@ -10,6 +10,7 @@ use App\Services\OpenRouterService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class WhatsAppController extends Controller
 {
@@ -116,6 +117,8 @@ class WhatsAppController extends Controller
         if (!$user) {
             $user = User::create([
                 'name' => 'WhatsApp User',  // Default name
+                'email' => $phoneNumber . '@example.com', // Generate a placeholder email
+                'password' => bcrypt(\Illuminate\Support\Str::random(16)), // Generate a random password
                 'phone_number' => $phoneNumber,
                 'first_seen_at' => now(),
                 'last_interaction_at' => now(),

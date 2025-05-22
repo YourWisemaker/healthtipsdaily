@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
 use Mockery;
 
-class SendDailyHealthTipsTest extends TestCase
+class BasicSendDailyHealthTipsTest extends TestCase
 {
     use RefreshDatabase;
     
@@ -24,7 +24,7 @@ class SendDailyHealthTipsTest extends TestCase
         Config::set('services.openrouter.model', 'test_model');
     }
     
-    public function test_send_daily_health_tips_command()
+    public function test_command_runs_without_errors()
     {
         // Create a user
         $user = User::factory()->create([
@@ -58,18 +58,6 @@ class SendDailyHealthTipsTest extends TestCase
         } catch (\Exception $e) {
             $this->fail('Command failed with exception: ' . $e->getMessage());
         }
-    }
-    
-    public function test_no_messages_sent_outside_preferred_time()
-    {
-        // Skip this test as it's covered by the main test
-        $this->assertTrue(true);
-    }
-    
-    public function test_inactive_scheduled_messages_not_sent()
-    {
-        // Skip this test as it's covered by the main test
-        $this->assertTrue(true);
     }
     
     protected function tearDown(): void

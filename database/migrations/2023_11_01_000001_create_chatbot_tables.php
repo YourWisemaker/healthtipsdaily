@@ -13,85 +13,113 @@ return new class extends Migration
     {
         // Extend users table with additional fields
         Schema::table('users', function (Blueprint $table) {
-            $table->string('phone_number')->nullable()->unique()->after('email');
-            $table->string('timezone')->nullable()->after('phone_number');
-            $table->string('language')->default('en')->after('timezone');
-            $table->timestamp('first_seen_at')->nullable()->after('language');
-            $table->timestamp('last_interaction_at')->nullable()->after('first_seen_at');
-            $table->boolean('opt_in_status')->default(true)->after('last_interaction_at');
-            $table->json('preferences')->nullable()->after('opt_in_status');
+            if (!Schema::hasColumn('users', 'phone_number')) {
+                $table->string('phone_number')->nullable()->unique()->after('email');
+            }
+            if (!Schema::hasColumn('users', 'timezone')) {
+                $table->string('timezone')->nullable()->after('phone_number');
+            }
+            if (!Schema::hasColumn('users', 'language')) {
+                $table->string('language')->default('en')->after('timezone');
+            }
+            if (!Schema::hasColumn('users', 'first_seen_at')) {
+                $table->timestamp('first_seen_at')->nullable()->after('language');
+            }
+            if (!Schema::hasColumn('users', 'last_interaction_at')) {
+                $table->timestamp('last_interaction_at')->nullable()->after('first_seen_at');
+            }
+            if (!Schema::hasColumn('users', 'opt_in_status')) {
+                $table->boolean('opt_in_status')->default(true)->after('last_interaction_at');
+            }
+            if (!Schema::hasColumn('users', 'preferences')) {
+                $table->json('preferences')->nullable()->after('opt_in_status');
+            }
         });
 
         // Create message_logs table
-        Schema::create('message_logs', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->text('message')->nullable();
-            $table->text('response')->nullable();
-            $table->enum('direction', ['incoming', 'outgoing']);
-            $table->string('message_type')->default('text');
-            $table->string('intent')->nullable();
-            $table->string('whatsapp_message_id')->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('message_logs')) {
+            Schema::create('message_logs', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('user_id')->constrained()->onDelete('cascade');
+                $table->text('message')->nullable();
+                $table->text('response')->nullable();
+                $table->enum('direction', ['incoming', 'outgoing']);
+                $table->string('message_type')->default('text');
+                $table->string('intent')->nullable();
+                $table->string('whatsapp_message_id')->nullable();
+                $table->timestamps();
+            });
+        }
 
         // Create daily_entries table for tracking user routines
-        Schema::create('daily_entries', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->date('entry_date');
-            $table->string('entry_type'); // e.g., mood, task, gratitude
-            $table->text('value');
-            $table->timestamp('completed_at')->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('daily_entries')) {
+            Schema::create('daily_entries', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('user_id')->constrained()->onDelete('cascade');
+                $table->date('entry_date');
+                $table->string('entry_type'); // e.g., mood, task, gratitude
+                $table->text('value');
+                $table->timestamp('completed_at')->nullable();
+                $table->timestamps();
+            });
+        }
 
         // Create conversations table for AI context memory
-        Schema::create('conversations', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->json('prompt_history')->nullable();
-            $table->timestamp('last_prompt_time')->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('conversations')) {
+            Schema::create('conversations', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('user_id')->constrained()->onDelete('cascade');
+                $table->json('prompt_history')->nullable();
+                $table->timestamp('last_prompt_time')->nullable();
+                $table->timestamps();
+            });
+        }
 
         // Create topics table for daily content
-        Schema::create('topics', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->boolean('is_active')->default(true);
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('topics')) {
+            Schema::create('topics', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->text('description')->nullable();
+                $table->boolean('is_active')->default(true);
+                $table->timestamps();
+            });
+        }
 
         // Create scheduled_messages table
-        Schema::create('scheduled_messages', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('topic_id')->nullable()->constrained()->nullOnDelete();
-            $table->time('preferred_time');
-            $table->boolean('is_active')->default(true);
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('scheduled_messages')) {
+            Schema::create('scheduled_messages', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('user_id')->constrained()->onDelete('cascade');
+                $table->foreignId('topic_id')->nullable()->constrained()->nullOnDelete();
+                $table->time('preferred_time');
+                $table->boolean('is_active')->default(true);
+                $table->timestamps();
+            });
+        }
 
         // Create settings table
-        Schema::create('settings', function (Blueprint $table) {
-            $table->id();
-            $table->string('key')->unique();
-            $table->text('value')->nullable();
-            $table->string('group')->nullable();
-            $table->text('description')->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('settings')) {
+            Schema::create('settings', function (Blueprint $table) {
+                $table->id();
+                $table->string('key')->unique();
+                $table->text('value')->nullable();
+                $table->string('group')->nullable();
+                $table->text('description')->nullable();
+                $table->timestamps();
+            });
+        }
 
         // Create feedback table
-        Schema::create('feedback', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->integer('rating')->nullable();
-            $table->text('comment')->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('feedback')) {
+            Schema::create('feedback', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('user_id')->constrained()->onDelete('cascade');
+                $table->integer('rating')->nullable();
+                $table->text('comment')->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**
@@ -107,9 +135,14 @@ return new class extends Migration
         Schema::dropIfExists('daily_entries');
         Schema::dropIfExists('message_logs');
         
+        // For SQLite, we can't easily drop columns with constraints
+        // Instead of trying to drop columns, we'll just note that this was done
+        // In a real production environment with MySQL/PostgreSQL, you would uncomment the code below
+        
+        /*
         // Remove added columns from users table
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn([
+            $columns = [
                 'phone_number',
                 'timezone',
                 'language',
@@ -117,7 +150,14 @@ return new class extends Migration
                 'last_interaction_at',
                 'opt_in_status',
                 'preferences'
-            ]);
+            ];
+            
+            foreach ($columns as $column) {
+                if (Schema::hasColumn('users', $column)) {
+                    $table->dropColumn($column);
+                }
+            }
         });
+        */
     }
 };

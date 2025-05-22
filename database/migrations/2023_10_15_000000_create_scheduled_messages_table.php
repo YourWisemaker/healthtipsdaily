@@ -11,15 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('scheduled_messages', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('topic_id')->nullable()->constrained()->onDelete('set null');
-            $table->time('preferred_time')->comment('Time of day when the user wants to receive messages');
-            $table->boolean('is_active')->default(true);
-            $table->timestamp('last_sent_at')->nullable();
-            $table->timestamps();
-        });
+        // Skip if the table will be created by the chatbot_tables migration
+        if (!Schema::hasTable('scheduled_messages')) {
+            Schema::create('scheduled_messages', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('user_id')->constrained()->onDelete('cascade');
+                $table->unsignedBigInteger('topic_id')->nullable(); // Remove foreign key constraint
+                $table->time('preferred_time')->comment('Time of day when the user wants to receive messages');
+                $table->boolean('is_active')->default(true);
+                $table->timestamp('last_sent_at')->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**

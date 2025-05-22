@@ -44,11 +44,15 @@ class ScheduledMessageTest extends TestCase
         ]);
         
         // Assert the scheduled message was created
+        // MySQL stores the time in a different format than what we pass in
         $this->assertDatabaseHas('scheduled_messages', [
             'user_id' => $user->id,
-            'preferred_time' => '08:00',
             'is_active' => true,
         ]);
+        
+        // Verify the time using the model instead of direct database assertion
+        $message = ScheduledMessage::where('user_id', $user->id)->first();
+        $this->assertEquals('08:00:00', $message->preferred_time->format('H:i:s'));
         
         // Assert the relationship works
         $this->assertEquals($user->id, $scheduledMessage->user->id);
@@ -75,9 +79,12 @@ class ScheduledMessageTest extends TestCase
         // Assert the scheduled message was updated
         $this->assertDatabaseHas('scheduled_messages', [
             'id' => $scheduledMessage->id,
-            'preferred_time' => '18:00',
             'is_active' => false,
         ]);
+        
+        // Verify the time using the model instead of direct database assertion
+        $message = ScheduledMessage::find($scheduledMessage->id);
+        $this->assertEquals('18:00:00', $message->preferred_time->format('H:i:s'));
     }
     
     public function test_can_delete_scheduled_message()
