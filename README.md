@@ -1,61 +1,154 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# HealthTipsDaily 🌿
+
+> "The greatest wealth is health. Without health, life is not life; it is only a state of languor and suffering." — Herodotus
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<a href="https://laravel.com" target="_blank"><img src="https://img.shields.io/badge/Laravel-12.0-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel Version"></a>
+<a href="https://php.net" target="_blank"><img src="https://img.shields.io/badge/PHP-8.2-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP Version"></a>
+<a href="https://whatsapp.com" target="_blank"><img src="https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="WhatsApp Integration"></a>
+<a href="https://openrouter.ai" target="_blank"><img src="https://img.shields.io/badge/AI_Powered-OpenRouter-5A67D8?style=for-the-badge" alt="OpenRouter AI"></a>
 </p>
 
-## About Laravel
+## 📋 About HealthTipsDaily
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+HealthTipsDaily is a WhatsApp-based health assistant that provides personalized daily health tips and answers health-related questions. The application uses AI to deliver evidence-based health information in a conversational manner, making health knowledge accessible to everyone through the familiar WhatsApp interface.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Key Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- 🤖 **AI-Powered Health Assistant** - Get evidence-based answers to your health questions
+- 📅 **Daily Health Tips** - Receive personalized health tips at your preferred time
+- 🔍 **Personalized Experience** - Content tailored to your health interests
+- 📱 **WhatsApp Integration** - Interact through a familiar messaging platform
+- 🛡️ **Medical Disclaimer** - Clear guidance on when to consult healthcare professionals
 
-## Learning Laravel
+## 🚀 Getting Started
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Prerequisites
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- PHP 8.2 or higher
+- Composer
+- Node.js & NPM
+- WhatsApp Business API credentials
+- OpenRouter API key
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Installation
 
-## Laravel Sponsors
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/healthtipsdaily.git
+   cd healthtipsdaily
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. Install PHP dependencies:
+   ```bash
+   composer install
+   ```
 
-### Premium Partners
+3. Install JavaScript dependencies:
+   ```bash
+   npm install
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+4. Copy the environment file and configure it:
+   ```bash
+   cp .env.example .env
+   ```
 
-## Contributing
+5. Generate application key:
+   ```bash
+   php artisan key:generate
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+6. Configure your database in the `.env` file:
+   ```
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=healthtipsdaily
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
 
-## Code of Conduct
+7. Configure WhatsApp and OpenRouter API credentials in `.env`:
+   ```
+   WHATSAPP_VERIFY_TOKEN=your_verify_token
+   WHATSAPP_API_TOKEN=your_api_token
+   OPENROUTER_API_KEY=your_openrouter_api_key
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+8. Run database migrations:
+   ```bash
+   php artisan migrate
+   ```
 
-## Security Vulnerabilities
+9. Start the development server:
+   ```bash
+   php artisan serve
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+10. For local development with WhatsApp webhook testing, use a service like ngrok:
+    ```bash
+    ngrok http 8000
+    ```
 
-## License
+## 🔧 Usage
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### WhatsApp Integration
+
+The application integrates with WhatsApp through webhooks. When a user sends a message to your WhatsApp Business number, the message is processed by the application and a response is generated using AI.
+
+### User Onboarding
+
+New users go through a simple onboarding process:
+1. Welcome message and request for user's name
+2. Collection of health interests (nutrition, fitness, mental health, etc.)
+3. Setting preferred time for daily health tips
+
+### Scheduled Messages
+
+The application sends daily health tips to users at their preferred time using the Laravel scheduler. To enable this feature, set up a cron job to run the scheduler:
+
+```bash
+* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
+```
+
+## 🧪 Testing
+
+Run the test suite with:
+
+```bash
+php artisan test
+```
+
+## 📚 API Documentation
+
+### Webhook Endpoints
+
+- **POST /api/whatsapp/webhook** - Receives incoming WhatsApp messages
+- **GET /api/whatsapp/webhook** - Verifies the webhook URL (required by WhatsApp Business API)
+
+## 🛠️ Architecture
+
+The application follows Laravel's MVC architecture:
+
+- **Models**: User, Conversation, MessageLog, ScheduledMessage
+- **Controllers**: WhatsAppController handles incoming messages and webhook verification
+- **Services**: OpenRouterService manages AI integration
+
+## 🔒 Security
+
+- All WhatsApp communication is encrypted end-to-end by WhatsApp
+- User data is stored securely and used only for providing the service
+- API keys and tokens are stored as environment variables, not in the codebase
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## ⚠️ Disclaimer
+
+HealthTipsDaily provides general health information and is not a substitute for professional medical advice. Always consult with a healthcare professional for medical concerns.
