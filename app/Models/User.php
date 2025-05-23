@@ -30,6 +30,7 @@ class User extends Authenticatable
         'last_interaction_at',
         'opt_in_status',
         'preferences',
+        'discord_id',
     ];
 
     /**

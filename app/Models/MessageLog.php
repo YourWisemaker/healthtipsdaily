@@ -23,6 +23,7 @@ class MessageLog extends Model
         'message_type',
         'intent',
         'whatsapp_message_id',
+        'discord_message_id',
     ];
 
     /**

@@ -49,5 +49,10 @@ Homestead.yaml
 docker-compose.override.yml
 
 # Testing
+
+# Postman
+/postman/*.json
+/postman/*.postman_collection.json
+/postman/*.postman_environment.json
 /coverage
 .phpunit.cache

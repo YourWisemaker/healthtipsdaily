@@ -17,3 +17,6 @@ use App\Http\Controllers\WhatsAppController;
 // WhatsApp webhook routes
 Route::post('/whatsapp/webhook', [WhatsAppController::class, 'webhook']);
 Route::get('/whatsapp/webhook', [WhatsAppController::class, 'verifyWebhook']);
+
+// Discord webhook routes
+Route::post('/discord/webhook', [DiscordController::class, 'webhook']);

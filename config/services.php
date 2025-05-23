@@ -46,5 +46,12 @@ return [
         'api_token' => env('WHATSAPP_API_TOKEN'),
         'phone_number_id' => env('WHATSAPP_PHONE_NUMBER_ID'),
     ],
+    
+    'discord' => [
+        'webhook_url' => env('DISCORD_WEBHOOK_URL'),
+        'bot_token' => env('DISCORD_BOT_TOKEN'),
+        'guild_id' => env('DISCORD_GUILD_ID'),
+        'application_id' => env('DISCORD_APPLICATION_ID'),
+    ],
 
 ];
