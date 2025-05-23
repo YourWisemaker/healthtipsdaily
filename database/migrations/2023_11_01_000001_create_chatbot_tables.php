@@ -135,11 +135,6 @@ return new class extends Migration
         Schema::dropIfExists('daily_entries');
         Schema::dropIfExists('message_logs');
         
-        // For SQLite, we can't easily drop columns with constraints
-        // Instead of trying to drop columns, we'll just note that this was done
-        // In a real production environment with MySQL/PostgreSQL, you would uncomment the code below
-        
-        /*
         // Remove added columns from users table
         Schema::table('users', function (Blueprint $table) {
             $columns = [
@@ -158,6 +153,5 @@ return new class extends Migration
                 }
             }
         });
-        */
     }
 };

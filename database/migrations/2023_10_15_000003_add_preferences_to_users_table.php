@@ -42,15 +42,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // For SQLite, we can't easily drop columns with constraints like unique indexes
-        // This is especially problematic in testing environments
-        if (config('database.default') === 'sqlite') {
-            // For SQLite, we'll just note that this was attempted
-            // In a real production environment with MySQL/PostgreSQL, you would use the code below
-            return;
-        }
-        
-        // For other database systems like MySQL or PostgreSQL
+        // Drop columns for MySQL database
         Schema::table('users', function (Blueprint $table) {
             // Only drop columns if they exist
             $columns = [];
